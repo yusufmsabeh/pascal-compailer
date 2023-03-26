@@ -15,7 +15,8 @@ public class FileScanner {
         try {
             if (scanner == null) {
 
-             String path = System.getProperty("user.dir")+"\\Complier\\src\\main\\java\\org\\example\\util\\pascalcode.txt";
+
+                String path = System.getProperty("user.dir") + "\\Compiler\\src\\main\\java\\org\\example\\util\\pascalcode.txt";
                 File pascalCode = new File(path);
                 scanner = new Scanner(pascalCode);
             }
