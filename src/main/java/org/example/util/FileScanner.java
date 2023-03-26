@@ -9,13 +9,11 @@ import java.util.Scanner;
 
 public class FileScanner {
 
-    static Scanner scanner;
+    public static Scanner scanner;
 
     public static void readFile() {
         try {
             if (scanner == null) {
-
-
                 String path = System.getProperty("user.dir") + "\\src\\main\\java\\org\\example\\util\\pascalcode.txt";
                 File pascalCode = new File(path);
                 System.out.println(pascalCode.getPath());

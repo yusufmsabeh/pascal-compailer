@@ -1,18 +1,21 @@
 package org.example;
 
 import org.example.util.FileScanner;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("hello world");
+        ArrayList<Token> tokens = new ArrayList<Token>();
         FileScanner.readFile();
-        System.out.println(FileScanner.nextLine());
-        System.out.println(FileScanner.nextLine());
-        System.out.println(FileScanner.nextLine());
-        System.out.println(FileScanner.nextLine());
-        System.out.println(FileScanner.nextLine());
-        System.out.println(FileScanner.nextLine());
-        System.out.println(FileScanner.nextLine());
-        System.out.println(FileScanner.nextLine());
+        FileScanner.nextLine();
+        FileScanner.nextLine();
+        while (FileScanner.scanner.hasNextLine()){
+            String [] words = FileScanner.nextLine().split(" ");
+            for (int i =0;i<words.length;i++){
+
+            }
+        }
+
+
     }
 }
