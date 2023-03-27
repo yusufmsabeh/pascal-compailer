@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class FileScanner {
 
     public static Scanner scanner;
-
+    public static int lineNumber = 0;
     public static void readFile() {
         try {
             if (scanner == null) {
@@ -31,7 +31,12 @@ public class FileScanner {
         String data = "end of file";
         if (scanner.hasNextLine()) {
             data = scanner.nextLine();
+            lineNumber++;
         }
         return data;
+    }
+
+    public  static int getLineNumber(){
+        return lineNumber;
     }
 }
