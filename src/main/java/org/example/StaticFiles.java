@@ -1,7 +1,7 @@
 package org.example;
 
 public class StaticFiles {
-    String[] PASCALKEYWORDS =
+  public static   String[] PASCALKEYWORDS =
     {
         "AND",
         "ARRAY",
