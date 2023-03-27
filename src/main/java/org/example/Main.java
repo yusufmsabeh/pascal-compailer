@@ -36,7 +36,7 @@ public class Main {
                         if (Helpers.isNumber(String.valueOf(word.charAt(0)))) {
                             throw new InvalidIdentifierException(new Token(TokenType.IDENTIFIER, word, FileScanner.getLineNumber()));
                         }
-
+                        tokens.add(new Token(TokenType.IDENTIFIER,word,FileScanner.getLineNumber()));
                     }
                 }
             }
