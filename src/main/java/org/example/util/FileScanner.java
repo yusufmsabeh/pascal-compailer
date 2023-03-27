@@ -22,14 +22,18 @@ public class FileScanner {
                 CodeSource codeSource = protectionDomain.getCodeSource();
                 URL locaction = codeSource.getLocation();
                 String path = locaction.getPath();
+                System.out.println(path);
                 int cutIndex = path.indexOf("build");
                 if(cutIndex==-1){
-                    cutIndex=path.indexOf("bin");
-                }
-                path = path.substring(0, cutIndex).replace("%20", " ");
+                    path = path+"org/example/util/pascalcode.txt";
+                }else{
+                    path = path.substring(0, cutIndex)+"\\src\\main\\java\\org\\example\\util\\pascalcode.txt";
 
+                }
+                path  =path.replace("%20", " ");
+                System.out.println(path);
                 // opening file
-                File pascalCode = new File(path, "\\src\\main\\java\\org\\example\\util\\pascalcode.txt");
+                File pascalCode = new File(path);
                 scanner = new Scanner(pascalCode);
             }
 
