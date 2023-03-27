@@ -8,6 +8,7 @@ public class FileScanner {
 
     public static Scanner scanner;
     public static int lineNumber = 0;
+
     public static void readFile() {
         try {
             if (scanner == null) {
@@ -36,7 +37,7 @@ public class FileScanner {
         return data;
     }
 
-    public  static int getLineNumber(){
+    public static int getLineNumber() {
         return lineNumber;
     }
 }
