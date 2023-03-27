@@ -11,4 +11,14 @@ public class Helpers {
         }
         return false;
     }
+
+    public static boolean isNumber (String Number){
+        try{
+            Double.parseDouble(Number);
+            return true;
+        }catch (NumberFormatException e){
+            return  false;
+        }
+    }
+
 }
