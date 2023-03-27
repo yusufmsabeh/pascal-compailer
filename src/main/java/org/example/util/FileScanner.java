@@ -24,7 +24,11 @@ public class FileScanner {
                 CodeSource codeSource = protectionDomain.getCodeSource();
                 URL locaction = codeSource.getLocation();
                 String path = locaction.getPath();
-                path = path.substring(0, path.indexOf("build")).replace("%20", " ");
+                int cutIndex = path.indexOf("build");
+                if(cutIndex==-1){
+                    cutIndex=path.indexOf("bin");
+                }
+                path = path.substring(0, cutIndex).replace("%20", " ");
 
                 // opening file
                 File pascalCode = new File(path, "\\src\\main\\java\\org\\example\\util\\pascalcode.txt");
