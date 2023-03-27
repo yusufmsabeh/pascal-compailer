@@ -3,6 +3,9 @@ package org.example;
 import org.example.Exceptions.InvalidIdentifierException;
 import org.example.util.FileScanner;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -36,7 +39,7 @@ public class Main {
                         if (Helpers.isNumber(String.valueOf(word.charAt(0)))) {
                             throw new InvalidIdentifierException(new Token(TokenType.IDENTIFIER, word, FileScanner.getLineNumber()));
                         }
-                        tokens.add(new Token(TokenType.IDENTIFIER,word,FileScanner.getLineNumber()));
+                        tokens.add(new Token(TokenType.IDENTIFIER, word, FileScanner.getLineNumber()));
                     }
                 }
             }
