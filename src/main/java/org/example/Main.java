@@ -14,7 +14,13 @@ public class Main {
         while (FileScanner.scanner.hasNextLine()) {
             String[] words = FileScanner.nextLine().split(" ");
             for (String word : words) {
-
+                    if(Helpers.isExist(word.trim())){
+                        tokens.add(new Token(TokenType.KEYWORD,word,FileScanner.getLineNumber()));
+                    }else  if(Helpers.isNumeric(words)){
+                        tokens.add(new Token(TokenType.NUM_CONST,word,FileScanner.getLineNumber()));
+                    }else {
+                        tokens.add(new Token(TokenType.IDENTIFIER,word,FileScanner.getLineNumber()));
+                    }
             }
         }
 
