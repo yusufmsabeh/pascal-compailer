@@ -11,10 +11,7 @@ public class FileScanner {
     public static void readFile() {
         try {
             if (scanner == null) {
-<<<<<<< HEAD
-=======
 
->>>>>>> ada15dab72148988c585589b60823702d0f8f98f
                 String path = System.getProperty("user.dir") + "\\src\\main\\java\\org\\example\\util\\pascalcode.txt";
                 File pascalCode = new File(path);
                 System.out.println(pascalCode.getPath());
