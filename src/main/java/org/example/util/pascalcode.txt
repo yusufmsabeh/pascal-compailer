@@ -1,5 +1,5 @@
 program one ;
-var a , b , c : integer ;
+var a , b , c , 1c: integer ;
 var d : boolean ;
 
 begin
