@@ -3,12 +3,10 @@ package org.example.util;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
-import java.security.CodeSigner;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.util.Scanner;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 
 public class FileScanner {
 
