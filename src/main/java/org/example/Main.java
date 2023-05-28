@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Token> tokens = new ArrayList<Token>();
+        ArrayList<Token> tokens = new ArrayList<>();
 
-        String exceptinMessage = "";
+        String exceptionMessage = "";
         FileScanner.readFile();
         try {
             while (FileScanner.scanner.hasNextLine()) {
@@ -17,7 +17,7 @@ public class Main {
 
                 for (String word : words) {
 
-                    if (word.trim() == "")
+                    if (word.trim().equals(""))
                         continue;
                     word = word.toUpperCase();
                     if (Helpers.isExist(word.trim())) {
@@ -36,13 +36,13 @@ public class Main {
                 }
             }
         } catch (InvalidIdentifierException invalidIdentifierException) {
-            exceptinMessage = invalidIdentifierException.toString();
+            exceptionMessage = invalidIdentifierException.toString();
         }
 
         for (Token token : tokens) {
             System.out.println(token);
         }
-        System.out.println("\033[1;31m" + "\n" + exceptinMessage + "\033[0m");
+        System.out.println("\033[1;31m" + "\n" + exceptionMessage + "\033[0m");
 
     }
 }
