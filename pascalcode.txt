@@ -1,4 +1,4 @@
 program example ;
-var x , y : integer ;
+var x , y : array [ num .. num ] of integer ;
 function gcd ( a , b : integer ) : integer ;
 

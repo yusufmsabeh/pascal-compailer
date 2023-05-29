@@ -58,6 +58,7 @@ public class StaticFiles {
                     "TRUE",
                     "FALSE",
                     "WRITE",
+                    "NUM",
                     "*",
                     "<>",
                     ":=",
