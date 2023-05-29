@@ -14,6 +14,7 @@ public class PascalGrammar {
         analyzeSyntax();
     }
 
+    // MAIN method to analyze the code
     private void analyzeSyntax() {
         match("PROGRAM", TokenType.KEYWORD);
         match(currentToken.token, TokenType.IDENTIFIER);
@@ -22,6 +23,16 @@ public class PascalGrammar {
         match(";", TokenType.KEYWORD);
         analyzeSubProgramDeclarations();
         match(";", TokenType.KEYWORD);
+        analyzeCompoundStatement();
+    }
+
+    private void analyzeCompoundStatement() {
+        match("BEGIN", TokenType.KEYWORD);
+        analyzeOptionalStatement();
+        match("END", TokenType.KEYWORD);
+    }
+
+    private void analyzeOptionalStatement() {
 
     }
 
