@@ -55,6 +55,7 @@ public class PascalGrammar {
                 analyzeStatement();
                 match("ELSE", TokenType.KEYWORD);
                 analyzeStatement();
+                match(";",TokenType.KEYWORD);
             }
             case "WHILE" -> {
                 match("WHILE", TokenType.KEYWORD);
