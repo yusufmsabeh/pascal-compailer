@@ -22,18 +22,176 @@ public class PascalGrammar {
         analyzeDeclarations();
         match(";", TokenType.KEYWORD);
         analyzeSubProgramDeclarations();
-        match(";", TokenType.KEYWORD);
+
         analyzeCompoundStatement();
     }
 
     private void analyzeCompoundStatement() {
-        match("BEGIN", TokenType.KEYWORD);
-        analyzeOptionalStatement();
-        match("END", TokenType.KEYWORD);
+        if (currentToken.token.equals("BEGIN")) {
+            match("BEGIN", TokenType.KEYWORD);
+            analyzeOptionalStatement();
+            match("END", TokenType.KEYWORD);
+        }
+
     }
 
     private void analyzeOptionalStatement() {
+        if (!currentToken.token.equals("END")) {
+            analyzeStatementList();
+        }
+    }
 
+    private void analyzeStatementList() {
+        analyzeStatement();
+    }
+
+    private void analyzeStatement() {
+        switch (currentToken.token) {
+            case "BEGIN" -> analyzeCompoundStatement();
+            case "IF" -> {
+                match("IF", TokenType.KEYWORD);
+                analyzeExpression();
+                match("THEN", TokenType.KEYWORD);
+                analyzeStatement();
+                match("ELSE", TokenType.KEYWORD);
+                analyzeStatement();
+            }
+            case "WHILE" -> {
+                match("WHILE", TokenType.KEYWORD);
+                analyzeExpression();
+                match("DO", TokenType.KEYWORD);
+                analyzeStatement();
+            }
+            default -> analyzeVariableOrProcedureStatement();
+        }
+    }
+
+    public void analyzeVariableOrProcedureStatement() {
+        match(currentToken.token, TokenType.IDENTIFIER);
+        analyzeVariableOrProcedureStatementRecursive();
+    }
+
+    public void analyzeVariableOrProcedureStatementRecursive() {
+        switch (currentToken.token) {
+            case "[" -> {
+                match("[", TokenType.KEYWORD);
+                analyzeExpression();
+                match("]", TokenType.KEYWORD);
+                match(":=", TokenType.KEYWORD);
+                analyzeExpression();
+            }
+            case "(" -> {
+                match("(", TokenType.KEYWORD);
+                analyzeExpressionList();
+                match(")", TokenType.KEYWORD);
+            }
+            default -> {
+                match(":=", TokenType.KEYWORD);
+                analyzeExpression();
+            }
+        }
+    }
+
+
+    public void analyzeExpression() {
+        analyzeSimpleExpression();
+        parseExpressionRecursive();
+    }
+
+    public void parseExpressionRecursive() {
+        switch (currentToken.token) {
+            case "=", "<>", "<", ">=", "=<", ">" -> {
+                analyzeRelOp();
+                analyzeSimpleExpression();
+            }
+        }
+    }
+
+    public void analyzeSimpleExpression() {
+        if (currentToken.token.equals("+") || currentToken.token.equals("-")) {
+            analyzeSign();
+            return;
+        }
+
+        analyzeTerm();
+        parseSimpleExpressionRecursive();
+    }
+
+    public void analyzeExpressionList() {
+        analyzeExpression();
+        analyzeExpressionListRecursive();
+    }
+
+    public void analyzeExpressionListRecursive() {
+        if (currentToken.token.equals(",")) {
+            match(",", TokenType.KEYWORD);
+            analyzeExpression();
+            analyzeExpressionListRecursive();
+        }
+    }
+
+    public void analyzeSign() {
+        if (currentToken.token.equals("+")) {
+            match("+", TokenType.KEYWORD);
+            return;
+        }
+
+        match("-", TokenType.KEYWORD);
+    }
+
+    public void parseSimpleExpressionRecursive() {
+        if (currentToken.token.equals("+") || currentToken.token.equals("-")) {
+            analyzeSign();
+            analyzeTerm();
+            parseSimpleExpressionRecursive();
+        }
+    }
+
+    private void analyzeTerm() {
+        analyzeFactor();
+        analyzeFactorList();
+    }
+
+    private void analyzeFactorList() {
+        if (currentToken.token.equals("*")) {
+            match("*", TokenType.KEYWORD);
+            analyzeFactor();
+            analyzeIdentifierList();
+        }
+    }
+
+    private void analyzeFactor() {
+        if (currentToken.type == TokenType.IDENTIFIER) {
+            match(currentToken.token, TokenType.IDENTIFIER);
+            analyzeFactor();
+        } else if (currentToken.type == TokenType.NUM_CONST) {
+            match(currentToken.token, TokenType.NUM_CONST);
+        } else if (currentToken.token.equals("(")) {
+            match("(", TokenType.KEYWORD);
+            analyzeExpressionList();
+            match(")", TokenType.KEYWORD);
+        } else if (currentToken.token.equals("NOT")) {
+            match("NOT", TokenType.KEYWORD);
+            analyzeFactor();
+        } else if (currentToken.token.equals("+") || currentToken.token.equals("-") || currentToken.token.equals("/") || currentToken.token.equals("*") || currentToken.token.equals("MOD")) {
+            switch (currentToken.token){
+                case "+"->match("+",TokenType.KEYWORD);
+                case "-"->match("-",TokenType.KEYWORD);
+                case "*"->match("*",TokenType.KEYWORD);
+                case "/"->match("/",TokenType.KEYWORD);
+                case "MOD"->match("MOD",TokenType.KEYWORD);
+            }
+            analyzeFactor();
+        }
+    }
+
+    private void analyzeRelOp() {
+        switch (currentToken.token) {
+            case "=", "<>", "<", ">=", "=<", ">" -> {
+                match(currentToken.token, TokenType.KEYWORD);
+                analyzeSimpleExpression();
+            }
+        }
     }
 
 
@@ -109,7 +267,7 @@ public class PascalGrammar {
         System.out.println(expectedTokenType);
         System.out.println(currentToken.type);
         System.out.println(expectedTokenType == TokenType.KEYWORD);
-        System.out.println(expectedTokenName.toUpperCase().equals(currentToken.token));
+//        System.out.println(expectedTokenName.equals(currentToken.token));
         System.out.println(expectedTokenType == currentToken.type);
 
         if ((expectedTokenType == TokenType.KEYWORD && expectedTokenName.toUpperCase().equals(currentToken.token) && expectedTokenType == currentToken.type) || (expectedTokenType != TokenType.KEYWORD && expectedTokenType == currentToken.type)) {
@@ -125,7 +283,6 @@ public class PascalGrammar {
             currentToken = tokens.get(++currentIndex);
         } else {
             System.out.println("Pascal Grammar done without any errors");
-            System.exit(0);
         }
     }
 
