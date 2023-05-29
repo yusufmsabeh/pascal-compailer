@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         ArrayList<Token> tokens = LexicalAnalyzer.tokanize();
-
+        PascalGrammar pascalGrammar = new PascalGrammar(tokens);
 
     }
 }
