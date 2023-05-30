@@ -22,7 +22,6 @@ public class PascalGrammar {
         analyzeDeclarations();
         match(";", TokenType.KEYWORD);
         analyzeSubProgramDeclarations();
-
         analyzeCompoundStatement();
     }
 
@@ -275,7 +274,7 @@ public class PascalGrammar {
             nextToken();
         } else {
             error(expectedTokenName, expectedTokenType);
-            System.exit(0);
+
         }
     }
 
@@ -293,6 +292,7 @@ public class PascalGrammar {
             case IDENTIFIER -> System.out.println(">>> It is expected to have a identifier " + expectedTokenName + " in line: " + currentToken.line);
             case NUM_CONST -> System.out.println(">>> It is expected to have a numeric constant " + expectedTokenName + " in line: " + currentToken.line);
         }
+        System.exit(0);
     }
 
 }
